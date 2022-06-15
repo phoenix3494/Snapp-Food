@@ -118,7 +118,9 @@ public class costumerRestaurantPageController {
                     break;
                 }
             }
-            costumer.getPreOrders().add(preorder);
+            if (!flag) {
+                costumer.getPreOrders().add(preorder);
+            }
             SetInFile.setcostumers(costumers);
             controller.initfunction(stage, costumer, orders, cafeRestaurants, costumers, selected, preorder);
             this.stage.setScene(new Scene(loader.getRoot()));

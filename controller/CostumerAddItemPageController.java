@@ -28,7 +28,7 @@ public class CostumerAddItemPageController {
     private TableView<Item> itemsTBL;
     private TableColumn<Item, String> itemName;
     private TableColumn<Item, Double> itemPrice;
-    private TableColumn<Item, Double> rating;
+    private TableColumn<Item, Double> Mrating;
     @FXML
     private TableView<Item> myItemsTBL;
     private TableColumn<Item, String> myitemName;
@@ -36,9 +36,6 @@ public class CostumerAddItemPageController {
     CafeRestaurant selectedRestaurant;
     ArrayList<Item> items = new ArrayList<Item>();
     PreOrder preorder;
-
-    public CostumerAddItemPageController() {
-    }
 
     public void initfunction(Stage stage, Costumer costumer, ArrayList<Order> orders,
             ArrayList<CafeRestaurant> cafeRestaurants, ArrayList<Costumer> costumers, CafeRestaurant selectedRestaurant,
@@ -56,11 +53,11 @@ public class CostumerAddItemPageController {
         categoryTBL.getItems().addAll(selectedRestaurant.getFoods());
         itemName = new TableColumn<>("Food");
         itemPrice = new TableColumn<>("Price");
-        rating = new TableColumn<>("Score");
+        // Mrating = new TableColumn<>("Score");
         itemName.setCellValueFactory(new PropertyValueFactory<>("Item_name"));
+        // Mrating.setCellValueFactory(new PropertyValueFactory<>("overall"));
         itemPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        rating.setCellValueFactory(new PropertyValueFactory<>("overallrating"));
-        itemsTBL.getColumns().addAll(itemName, itemPrice, rating);
+        itemsTBL.getColumns().addAll(itemName, itemPrice, Mrating);
         myitemName = new TableColumn<>("Food");
         myitemPrice = new TableColumn<>("Price");
         myitemName.setCellValueFactory(new PropertyValueFactory<>("Item_name"));
@@ -99,6 +96,7 @@ public class CostumerAddItemPageController {
         if (selectedItem != null) {
             preorder.getItems().add(selectedItem);
             myItemsTBL.getItems().add(selectedItem);
+            preorder.setNumberOfItems(preorder.getNumberOfItems() + 1);
         }
     }
 

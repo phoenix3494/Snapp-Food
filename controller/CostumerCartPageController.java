@@ -44,7 +44,7 @@ public class CostumerCartPageController {
     @FXML
     void back(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("..\\view\\costumerrestaurantpage.fxml"));
+        loader.setLocation(getClass().getResource("..\\view\\costumermainpage.fxml"));
         try {
             loader.load();
         } catch (IOException e) {

@@ -8,15 +8,14 @@ public class Item implements Serializable {
     private int restaurantID;
     private String Item_name;
     private double price;
-    private double overallrating;
-    private  long numberOfScorers;
+    public double overall = 0D;
+    private long numberOfScorers;
 
     private String restaurantName;
 
-    public Item(String item_name, double price,int catagoryID,int itemID , int restaurantID,String restaurantName) {
+    public Item(String item_name, double price, int catagoryID, int itemID, int restaurantID, String restaurantName) {
         Item_name = item_name;
         this.price = price;
-        this.overallrating = 0;
         this.numberOfScorers = 0;
         this.foodCatagoryID = catagoryID;
         this.itemID = itemID;
@@ -40,12 +39,13 @@ public class Item implements Serializable {
     public void setPrice(double price) {
         this.price = price;
     }
+
     public double getRating() {
-        return overallrating;
+        return overall;
     }
 
     public void setRating(double rating) {
-        this.overallrating = rating;
+        this.overall = rating;
     }
 
     public long getNumberOfScorers() {
@@ -55,6 +55,7 @@ public class Item implements Serializable {
     public void setNumberOfScorers(long numberOfScorers) {
         this.numberOfScorers = numberOfScorers;
     }
+
     public int getFoodCatagoryID() {
         return foodCatagoryID;
     }
@@ -78,12 +79,12 @@ public class Item implements Serializable {
     public void setRestaurantID(int restaurantID) {
         this.restaurantID = restaurantID;
     }
-    public void addScore(double score)
-    {
-        double num = numberOfScorers * overallrating;
+
+    public void addScore(double score) {
+        double num = numberOfScorers * overall;
         num = num + score;
         numberOfScorers = numberOfScorers + 1;
-        setRating(num/numberOfScorers);
+        setRating(num / numberOfScorers);
     }
 
     public String getRestaurantName() {

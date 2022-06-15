@@ -172,11 +172,11 @@ public class SignUpPageController implements Initializable {
                 getCounter();
                 Costumer costumer = new Costumer(idcounter.getCostumerID(), nameTXF.getText(), fnameTXF.getText(),
                         EmailTXF.getText(), passToHash(passwordTXF.getText()), phoneTXF.getText());
+                costumers.add(costumer);
+                idcounter.AddCostumer();
                 if (invite != null) {
                     addDiscountCode(invite.getInviterEmail(), EmailTXF.getText());
                 }
-                costumers.add(costumer);
-                idcounter.AddCostumer();
                 removeInvitations(EmailTXF.getText());
                 SetInFile.setCounter(idcounter);
                 SetInFile.setcostumers(costumers);
