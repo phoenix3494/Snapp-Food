@@ -9,10 +9,11 @@ public class CafeRestaurant extends Place implements Serializable {
     private String name;
     private ArrayList<FoodCatagory> foods = new ArrayList<FoodCatagory>();
 
-    public CafeRestaurant(CAFEORRESTAURANT T,int id,String placeName, String address ,String name) {
+    public CafeRestaurant(CAFEORRESTAURANT T, int id, String placeName, String address, String name) {
         super(placeName, address);
         this.name = name;
         this.type = T;
+        this.ID = id;
 
     }
 
@@ -47,6 +48,5 @@ public class CafeRestaurant extends Place implements Serializable {
     public void setFoods(ArrayList<FoodCatagory> foods) {
         this.foods = foods;
     }
-
 
 }

@@ -68,6 +68,7 @@ public class CostumerFinalizePaymentPageController {
         String d = Double.toString(costumer.getMoney());
         this.priceLBL.setText(s);
         this.mymoneyLBL.setText(d);
+        getCounter();
 
     }
 
@@ -122,7 +123,7 @@ public class CostumerFinalizePaymentPageController {
                             selectedPreOrder.getItems().get(i).getRestaurantID(),
                             selectedPreOrder.getItems().get(i).getItem_name()));
         }
-        getCounter();
+
         Order order = new Order(idcounter.getOrderID(), costumer.getID(), selectedPreOrder.getCafeRestaurantAddress(),
                 addressTXF.getText(),
                 selectedPreOrder.getCafeRestaurantName(), orderItems, this.priceAfterDiscount, costumer.getName(),

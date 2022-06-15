@@ -272,7 +272,7 @@ public class SignUpPageController implements Initializable {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(from));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-            message.setSubject("Messenger Verification");
+            message.setSubject("Snapp!Food Verification");
             message.setText(code);
             Transport.send(message);
         } catch (MessagingException mex) {
@@ -392,7 +392,6 @@ public class SignUpPageController implements Initializable {
         getRestaurants();
         getOrders();
         getInvitations();
-        getCounter();
         codeTXF.setDisable(true);
     }
 }

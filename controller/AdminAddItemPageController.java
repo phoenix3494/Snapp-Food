@@ -11,7 +11,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.*;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -68,6 +70,7 @@ public class AdminAddItemPageController implements Initializable {
         myitemPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         itemTBL.getColumns().addAll(myitemName, myitemPrice);
         itemTBL.getItems().addAll(selectedCategory.getItems());
+        getCounter();
     }
 
     @FXML
@@ -83,7 +86,7 @@ public class AdminAddItemPageController implements Initializable {
     @FXML
     void confirm(ActionEvent event) {
         Boolean checkName = Pattern.matches("[a-zA-Z0-9 ]{3,35}", nameTXF.getText());
-        Boolean checkPrice = Pattern.matches("[0-9]{1,10}", priceTXF.getText());
+        Boolean checkPrice = Pattern.matches("[0-9.]{1,10}", priceTXF.getText());
         if (checkName && checkPrice) {
             if (checkItemName(nameTXF.getText())) {
                 Item item = new Item(nameTXF.getText(), Double.parseDouble(priceTXF.getText()),
@@ -117,6 +120,17 @@ public class AdminAddItemPageController implements Initializable {
         addItemVBX.setVisible(!b);
         addBTN.setDisable(!b);
         errorLBL.setText("");
+    }
+
+    private void getCounter() {
+        try {
+            FileInputStream fis = new FileInputStream("counter.txt");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            this.idcounter = (IDcounter) ois.readObject();
+            ois.close();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

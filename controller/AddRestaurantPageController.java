@@ -58,10 +58,10 @@ public class AddRestaurantPageController implements Initializable {
 
     @FXML
     private TableView<CafeRestaurant> restaurantTBL;
-    private TableColumn<CafeRestaurant,String> name;
-    private TableColumn<CafeRestaurant,String> placeName;
-    private TableColumn<CafeRestaurant,String> address;
-    private TableColumn<CafeRestaurant,CAFEORRESTAURANT> cafeOrRestaurant;
+    private TableColumn<CafeRestaurant, String> name;
+    private TableColumn<CafeRestaurant, String> placeName;
+    private TableColumn<CafeRestaurant, String> address;
+    private TableColumn<CafeRestaurant, CAFEORRESTAURANT> cafeOrRestaurant;
 
     @FXML
     private Button statusBTN;
@@ -69,12 +69,11 @@ public class AddRestaurantPageController implements Initializable {
     @FXML
     private ToggleGroup type;
 
-
     @FXML
     private Label errorLBL;
 
-    public void initfunction(Stage stage , ArrayList<CafeRestaurant> cafeRestaurants , ArrayList<Delivery> deliveries, ArrayList<Costumer> costumers )
-    {
+    public void initfunction(Stage stage, ArrayList<CafeRestaurant> cafeRestaurants, ArrayList<Delivery> deliveries,
+            ArrayList<Costumer> costumers) {
         this.stage = stage;
         this.deliveries = deliveries;
         this.costumers = costumers;
@@ -87,9 +86,11 @@ public class AddRestaurantPageController implements Initializable {
         placeName.setCellValueFactory(new PropertyValueFactory<>("placeName"));
         cafeOrRestaurant.setCellValueFactory(new PropertyValueFactory<>("type"));
         address.setCellValueFactory(new PropertyValueFactory<>("Address"));
-        restaurantTBL.getColumns().addAll(cafeOrRestaurant,name,placeName,address);
+        restaurantTBL.getColumns().addAll(cafeOrRestaurant, name, placeName, address);
         restaurantTBL.getItems().addAll(cafeRestaurants);
+        getCounter();
     }
+
     @FXML
     void add(ActionEvent event) {
         addRestaurantVBX.setDisable(false);
@@ -97,6 +98,7 @@ public class AddRestaurantPageController implements Initializable {
         addBTN.setDisable(true);
         statusBTN.setDisable(true);
     }
+
     @FXML
     void cancel(ActionEvent event) {
         reset();
@@ -105,24 +107,23 @@ public class AddRestaurantPageController implements Initializable {
         addBTN.setDisable(false);
         statusBTN.setDisable(false);
     }
+
     @FXML
     void confirm(ActionEvent event) {
-        Boolean name = Pattern.matches("[A-Za-z0-9 ]{3,100}",nameTXF.getText());
-        Boolean placename = Pattern.matches("[A-Za-z0-9 ]{3,100}",placeTXF.getText());
-        Boolean address = Pattern.matches("[A-Za-z0-9 ]{3,100}",addressTXF.getText());
-        getCounter();
-        if(name && placename && address && checkRestaurant(nameTXF.getText(),placeTXF.getText(),addressTXF.getText()))
-        {
-            if(cafeRB.isSelected())
-            {
-                CafeRestaurant restaurant = new CafeRestaurant(CAFEORRESTAURANT.Cafe,idcounter.getCafeRestaurantID(),placeTXF.getText(),addressTXF.getText(),nameTXF.getText());
+        Boolean name = Pattern.matches("[A-Za-z0-9 ]{3,100}", nameTXF.getText());
+        Boolean placename = Pattern.matches("[A-Za-z0-9 ]{3,100}", placeTXF.getText());
+        Boolean address = Pattern.matches("[A-Za-z0-9 ]{3,100}", addressTXF.getText());
+        if (name && placename && address
+                && checkRestaurant(nameTXF.getText(), placeTXF.getText(), addressTXF.getText())) {
+            if (cafeRB.isSelected()) {
+                CafeRestaurant restaurant = new CafeRestaurant(CAFEORRESTAURANT.Cafe, idcounter.getCafeRestaurantID(),
+                        placeTXF.getText(), addressTXF.getText(), nameTXF.getText());
                 cafeRestaurants.add(restaurant);
                 restaurantTBL.getItems().add(restaurant);
                 errorLBL.setText("Cafe Added!");
-            }
-            else
-            {
-                CafeRestaurant restaurant = new CafeRestaurant(CAFEORRESTAURANT.Restaurant,idcounter.getCafeRestaurantID(),placeTXF.getText(),addressTXF.getText(),nameTXF.getText());
+            } else {
+                CafeRestaurant restaurant = new CafeRestaurant(CAFEORRESTAURANT.Restaurant,
+                        idcounter.getCafeRestaurantID(), placeTXF.getText(), addressTXF.getText(), nameTXF.getText());
                 errorLBL.setText("Restaurant Added");
                 restaurantTBL.getItems().add(restaurant);
                 cafeRestaurants.add(restaurant);
@@ -135,28 +136,25 @@ public class AddRestaurantPageController implements Initializable {
             addRestaurantVBX.setVisible(false);
             addBTN.setDisable(false);
             statusBTN.setDisable(false);
-        }
-        else{
+        } else {
             errorLBL.setText("Please Enter Correct Inputs");
         }
-        }
-    private boolean checkRestaurant(String name , String place , String address)
-    {
-        for(CafeRestaurant res : cafeRestaurants)
-        {
-            if(res.getName().equals(name) && res.getPlaceName().equals(place) && res.getAddress().equals(address))
-            {
+    }
+
+    private boolean checkRestaurant(String name, String place, String address) {
+        for (CafeRestaurant res : cafeRestaurants) {
+            if (res.getName().equals(name) && res.getPlaceName().equals(place) && res.getAddress().equals(address)) {
                 errorLBL.setText("This restaurant exist in this location!");
-                return  false;
+                return false;
             }
         }
         return true;
     }
+
     @FXML
     void status(ActionEvent event) {
         CafeRestaurant selectedCafeRestaurant = restaurantTBL.getSelectionModel().getSelectedItem();
-        if(selectedCafeRestaurant != null)
-        {
+        if (selectedCafeRestaurant != null) {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("..\\view\\addcategory.fxml"));
             try {
@@ -165,16 +163,17 @@ public class AddRestaurantPageController implements Initializable {
                 e.printStackTrace();
             }
             AddCategoryPageController controller = loader.getController();
-            controller.initfunction(stage,cafeRestaurants,deliveries,costumers,selectedCafeRestaurant);
+            controller.initfunction(stage, cafeRestaurants, deliveries, costumers, selectedCafeRestaurant);
             this.stage.setScene(new Scene(loader.getRoot()));
         }
     }
-    private void reset()
-    {
+
+    private void reset() {
         nameTXF.setText("");
         addressTXF.setText("");
         placeTXF.setText("");
     }
+
     @FXML
     void back(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader();
@@ -185,11 +184,11 @@ public class AddRestaurantPageController implements Initializable {
             e.printStackTrace();
         }
         AdminMainPageController controller = loader.getController();
-        controller.initfunction(stage,cafeRestaurants,deliveries,costumers);
+        controller.initfunction(stage, cafeRestaurants, deliveries, costumers);
         this.stage.setScene(new Scene(loader.getRoot()));
     }
-    private void getCounter()
-    {
+
+    private void getCounter() {
         try {
             FileInputStream fis = new FileInputStream("counter.txt");
             ObjectInputStream ois = new ObjectInputStream(fis);
@@ -199,9 +198,11 @@ public class AddRestaurantPageController implements Initializable {
             e.printStackTrace();
         }
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addRestaurantVBX.setDisable(true);
         addRestaurantVBX.setVisible(false);
+
     }
 }
