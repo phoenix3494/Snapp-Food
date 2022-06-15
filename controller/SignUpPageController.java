@@ -65,6 +65,10 @@ public class SignUpPageController implements Initializable {
 
     @FXML
     private TextField phoneTXF;
+    String inviteCode = "";
+    boolean inviteIsCorrect = false;
+    boolean invitationCodeIsEmpty = true;
+    Invitation invite;
 
     public void initfunction(Stage stage) {
         this.stage = stage;
@@ -95,7 +99,8 @@ public class SignUpPageController implements Initializable {
         invitationTXF.setText("");
         EmailTXF.setText("");
         phoneTXF.setText("");
-        signupBTN.setText("Confirm");
+        this.invite = null;
+        signupBTN.setText("Sign Up");
         resetBTN.setDisable(true);
         setDisable(false);
         errorLBL.setText("");
@@ -116,6 +121,7 @@ public class SignUpPageController implements Initializable {
         for (int i = 0; i < invitations.size(); i++) {
             if (email.equals(invitations.get(i).getInvitedEmail())
                     && code.equals(invitations.get(i).getInvitationCode())) {
+                this.invite = invitations.get(i);
                 return true;
             }
         }
@@ -124,8 +130,7 @@ public class SignUpPageController implements Initializable {
 
     @FXML
     void signup(ActionEvent event) {
-        String inviteCode = "";
-        if (signupBTN.getText().equals("Confirm")) {
+        if (signupBTN.getText().equals("Sign Up")) {
             Boolean name = Pattern.matches("[A-Za-z ]{3,30}", nameTXF.getText());
             Boolean fname = Pattern.matches("[A-Za-z ]{3,30}", fnameTXF.getText());
             Boolean check_phone = Pattern.matches("09[0-9]{9}", phoneTXF.getText().toString());
@@ -134,15 +139,30 @@ public class SignUpPageController implements Initializable {
                     EmailTXF.getText().toString());
             if (name && fname && check_phone && checkPass && checkEmail) {
                 if (checkEmailList(EmailTXF.getText().toString())) {
-                    if (!invitationTXF.getText().toString().equals("")
-                            && !checkInvitationCode(EmailTXF.getText(), invitationTXF.getText())) {
-                        errorLBL.setText("");
-
+                    if (invitationTXF.getText().equals("")) {
+                        invitationCodeIsEmpty = true;
+                        inviteIsCorrect = false;
+                        invite = null;
                     }
-                    sendEmail(generateNumber(), EmailTXF.getText().toString());
+
+                    if (!invitationTXF.getText().equals("")
+                            && checkInvitationCode(EmailTXF.getText(), invitationTXF.getText())) {
+                        this.inviteCode = invitationTXF.getText();
+                        invitationCodeIsEmpty = false;
+                        inviteIsCorrect = true;
+                    }
+                    if (!invitationTXF.getText().equals("")
+                            && !checkInvitationCode(EmailTXF.getText(), invitationTXF.getText())) {
+                        errorLBL.setText("invitation code is invalid");
+                    }
+                    sendEmail(generateNumber(), EmailTXF.getText());
                     errorLBL.setText("");
-                    setDisable(true);
                     signupBTN.setText("Verify");
+                    setDisable(true);
+                    resetBTN.setDisable(false);
+
+                } else {
+                    errorLBL.setText("This Email Exists");
                 }
             } else {
                 errorLBL.setText("Please Enter Correct inputs");
@@ -152,6 +172,9 @@ public class SignUpPageController implements Initializable {
                 getCounter();
                 Costumer costumer = new Costumer(idcounter.getCostumerID(), nameTXF.getText(), fnameTXF.getText(),
                         EmailTXF.getText(), passToHash(passwordTXF.getText()), phoneTXF.getText());
+                if (invite != null) {
+                    addDiscountCode(invite.getInviterEmail(), EmailTXF.getText());
+                }
                 costumers.add(costumer);
                 idcounter.AddCostumer();
                 removeInvitations(EmailTXF.getText());
@@ -369,5 +392,6 @@ public class SignUpPageController implements Initializable {
         getOrders();
         getInvitations();
         getCounter();
+        codeTXF.setDisable(true);
     }
 }

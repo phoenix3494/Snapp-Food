@@ -75,7 +75,7 @@ public class costumerRestaurantPageController {
     @FXML
     void search(ActionEvent event) {
         if (!searchTXF.getText().equals("")) {
-            restaurantTBL.getItems().removeAll();
+            restaurantTBL.getItems().clear();
             int counter = 0;
             for (int i = 0; i < cafeRestaurants.size(); i++) {
                 if (cafeRestaurants.get(i).getPlaceName().equals(searchTXF.getText())) {
