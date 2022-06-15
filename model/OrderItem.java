@@ -3,7 +3,7 @@ package model;
 import java.io.Serializable;
 
 public class OrderItem implements Serializable {
-    private double rating;
+    private double Rating;
     private double price;
     private int itemID;
     private int foodCatagoryID;
@@ -11,7 +11,7 @@ public class OrderItem implements Serializable {
     private String Item_name;
 
     public OrderItem(double price, int itemID, int foodCatagoryID, int restaurantId, String item_name) {
-        this.rating = 0;
+        this.Rating = 0;
         this.price = price;
         this.itemID = itemID;
         this.foodCatagoryID = foodCatagoryID;
@@ -20,11 +20,11 @@ public class OrderItem implements Serializable {
     }
 
     public double getRating() {
-        return rating;
+        return Rating;
     }
 
     public void setRating(double rating) {
-        this.rating = rating;
+        this.Rating = rating;
     }
 
     public double getPrice() {

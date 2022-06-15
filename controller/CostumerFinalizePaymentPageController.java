@@ -19,7 +19,7 @@ public class CostumerFinalizePaymentPageController {
     private Stage stage;
     private Costumer costumer;
     private ArrayList<Order> orders = new ArrayList<Order>();
-    private  ArrayList<CafeRestaurant> cafeRestaurants = new ArrayList<CafeRestaurant>();
+    private ArrayList<CafeRestaurant> cafeRestaurants = new ArrayList<CafeRestaurant>();
     private PreOrder selectedPreOrder;
     private ArrayList<Costumer> costumers = new ArrayList<Costumer>();
     @FXML
@@ -33,7 +33,7 @@ public class CostumerFinalizePaymentPageController {
     private Label errorLBL;
 
     @FXML
-    private TableView<?> itemsTBL;
+    private TableView<Item> itemsTBL;
 
     @FXML
     private Label mymoneyLBL;
@@ -42,27 +42,26 @@ public class CostumerFinalizePaymentPageController {
     private TextField addressTXF;
     @FXML
     private Label priceLBL;
-    private TableColumn<Item,String> myitemName;
-    private TableColumn<Item,Double> myitemPrice;
-
-
+    private TableColumn<Item, String> myitemName;
+    private TableColumn<Item, Double> myitemPrice;
     private double orderPrice;
     private double priceAfterDiscount;
     private DiscountCode discountCode;
     private int discountPercentage = 0;
 
-
-    public void initfunction(Stage stage ,Costumer costumer ,ArrayList<Order> orders ,ArrayList<CafeRestaurant> cafeRestaurants,ArrayList<Costumer> costumers,PreOrder selectedPreOrder )
-    {
+    public void initfunction(Stage stage, Costumer costumer, ArrayList<Order> orders,
+            ArrayList<CafeRestaurant> cafeRestaurants, ArrayList<Costumer> costumers, PreOrder selectedPreOrder) {
         this.stage = stage;
-        this.costumer =costumer;
+        this.costumer = costumer;
         this.orders = orders;
         this.cafeRestaurants = cafeRestaurants;
         this.costumers = costumers;
         this.selectedPreOrder = selectedPreOrder;
+        myitemName = new TableColumn<>("Name");
+        myitemPrice = new TableColumn<>("Price");
         myitemName.setCellValueFactory(new PropertyValueFactory<>("Item_name"));
         myitemPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        myItemsTBL.getColumns().addAll(myitemName,myitemPrice);
+        myItemsTBL.getColumns().addAll(myitemName, myitemPrice);
         myItemsTBL.getItems().addAll(selectedPreOrder.getItems());
         this.orderPrice = selectedPreOrder.getPrice();
         this.priceAfterDiscount = selectedPreOrder.getPrice();
@@ -72,6 +71,7 @@ public class CostumerFinalizePaymentPageController {
         this.mymoneyLBL.setText(d);
 
     }
+
     @FXML
     void back(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader();
@@ -82,30 +82,51 @@ public class CostumerFinalizePaymentPageController {
             e.printStackTrace();
         }
         CostumerMainPageController controller = loader.getController();
-        controller.initfunction(stage,costumer,orders,cafeRestaurants,costumers);
+        controller.initfunction(stage, costumer, orders, cafeRestaurants, costumers);
         this.stage.setScene(new Scene(loader.getRoot()));
     }
+
     @FXML
     void applyDiscount(ActionEvent event) {
-            String discount = discountCodeTXF.getText().toString();
-            for(int i = 0 ; i<costumer.getCostumerDiscounts().size() ; i++)
-            {
-                if(costumer.getCostumerDiscounts().get(i).getCode().equals(discount))
-                {
-                    errorLBL.setText("Discount Code Applied");
-                    this.discountPercentage = costumer.getCostumerDiscounts().get(i).getDiscountPercentage();
-                    this.discountCode = costumer.getCostumerDiscounts().get(i);
-
-
-                }
+        String discount = discountCodeTXF.getText().toString();
+        for (int i = 0; i < costumer.getCostumerDiscounts().size(); i++) {
+            if (costumer.getCostumerDiscounts().get(i).getCode().equals(discount)) {
+                errorLBL.setText("Discount Code Applied");
+                this.discountPercentage = costumer.getCostumerDiscounts().get(i).getDiscountPercentage();
+                this.discountCode = costumer.getCostumerDiscounts().get(i);
+                this.priceAfterDiscount = priceAfterDiscountttt(this.orderPrice, this.discountPercentage);
+                priceLBL.setText(Double.toString(priceAfterDiscount));
+                return;
             }
+        }
+        errorLBL.setText("Invalid Discount code");
     }
 
     @FXML
     void buy(ActionEvent event) {
+        if (selectedPreOrder.getPrice() > priceAfterDiscount) {
+            errorLBL.setText("You dont have Enough Money! go and charge your account!");
+            return;
+        }
 
     }
 
+    private double priceAfterDiscountttt(double price, int discount) {
+        return price - ((price * discount) / 100);
+    }
 
+    private void goToThanksPage() {
+        costumer.getPreOrders().remove(this.selectedPreOrder);
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("..\\view\\thanks.fxml"));
+        try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ThanksPageController controller = loader.getController();
+        controller.initfunction(stage, costumer, orders, cafeRestaurants, costumers);
+        this.stage.setScene(new Scene(loader.getRoot()));
+    }
 
 }

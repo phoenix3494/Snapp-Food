@@ -8,7 +8,7 @@ public class Item implements Serializable {
     private int restaurantID;
     private String Item_name;
     private double price;
-    public double overall = 0D;
+    public Double overall = 0D;
     private long numberOfScorers;
 
     private String restaurantName;
@@ -40,11 +40,11 @@ public class Item implements Serializable {
         this.price = price;
     }
 
-    public double getRating() {
+    public double getOverall() {
         return overall;
     }
 
-    public void setRating(double rating) {
+    public void setOverall(double rating) {
         this.overall = rating;
     }
 
@@ -84,7 +84,7 @@ public class Item implements Serializable {
         double num = numberOfScorers * overall;
         num = num + score;
         numberOfScorers = numberOfScorers + 1;
-        setRating(num / numberOfScorers);
+        setOverall(num / numberOfScorers);
     }
 
     public String getRestaurantName() {

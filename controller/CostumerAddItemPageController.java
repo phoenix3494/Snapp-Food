@@ -1,11 +1,13 @@
 package controller;
 
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -28,7 +30,7 @@ public class CostumerAddItemPageController {
     private TableView<Item> itemsTBL;
     private TableColumn<Item, String> itemName;
     private TableColumn<Item, Double> itemPrice;
-    private TableColumn<Item, Double> Mrating;
+    private TableColumn<Item, SimpleDoubleProperty> Mrating;
     @FXML
     private TableView<Item> myItemsTBL;
     private TableColumn<Item, String> myitemName;
@@ -53,9 +55,9 @@ public class CostumerAddItemPageController {
         categoryTBL.getItems().addAll(selectedRestaurant.getFoods());
         itemName = new TableColumn<>("Food");
         itemPrice = new TableColumn<>("Price");
-        // Mrating = new TableColumn<>("Score");
+        Mrating = new TableColumn<>("Score");
         itemName.setCellValueFactory(new PropertyValueFactory<>("Item_name"));
-        // Mrating.setCellValueFactory(new PropertyValueFactory<>("overall"));
+        Mrating.setCellValueFactory(new PropertyValueFactory<>("overall"));
         itemPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         itemsTBL.getColumns().addAll(itemName, itemPrice, Mrating);
         myitemName = new TableColumn<>("Food");
