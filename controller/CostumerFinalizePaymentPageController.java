@@ -12,7 +12,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.*;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
 public class CostumerFinalizePaymentPageController {
@@ -22,10 +24,6 @@ public class CostumerFinalizePaymentPageController {
     private ArrayList<CafeRestaurant> cafeRestaurants = new ArrayList<CafeRestaurant>();
     private PreOrder selectedPreOrder;
     private ArrayList<Costumer> costumers = new ArrayList<Costumer>();
-    @FXML
-    private TableView<PreOrder> ItemsTBL;
-    @FXML
-    private TableView<Item> myItemsTBL;
     @FXML
     private TextField discountCodeTXF;
 
@@ -46,8 +44,9 @@ public class CostumerFinalizePaymentPageController {
     private TableColumn<Item, Double> myitemPrice;
     private double orderPrice;
     private double priceAfterDiscount;
-    private DiscountCode discountCode;
+    private DiscountCode discountCode = null;
     private int discountPercentage = 0;
+    private IDcounter idcounter = new IDcounter();
 
     public void initfunction(Stage stage, Costumer costumer, ArrayList<Order> orders,
             ArrayList<CafeRestaurant> cafeRestaurants, ArrayList<Costumer> costumers, PreOrder selectedPreOrder) {
@@ -61,8 +60,8 @@ public class CostumerFinalizePaymentPageController {
         myitemPrice = new TableColumn<>("Price");
         myitemName.setCellValueFactory(new PropertyValueFactory<>("Item_name"));
         myitemPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        myItemsTBL.getColumns().addAll(myitemName, myitemPrice);
-        myItemsTBL.getItems().addAll(selectedPreOrder.getItems());
+        itemsTBL.getColumns().addAll(myitemName, myitemPrice);
+        itemsTBL.getItems().addAll(selectedPreOrder.getItems());
         this.orderPrice = selectedPreOrder.getPrice();
         this.priceAfterDiscount = selectedPreOrder.getPrice();
         String s = Double.toString(orderPrice);
@@ -75,13 +74,13 @@ public class CostumerFinalizePaymentPageController {
     @FXML
     void back(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("..\\view\\costumerrestaurantpage.fxml"));
+        loader.setLocation(getClass().getResource("..\\view\\costumercart.fxml"));
         try {
             loader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        CostumerMainPageController controller = loader.getController();
+        CostumerCartPageController controller = loader.getController();
         controller.initfunction(stage, costumer, orders, cafeRestaurants, costumers);
         this.stage.setScene(new Scene(loader.getRoot()));
     }
@@ -104,11 +103,38 @@ public class CostumerFinalizePaymentPageController {
 
     @FXML
     void buy(ActionEvent event) {
-        if (selectedPreOrder.getPrice() > priceAfterDiscount) {
+        if (priceAfterDiscount > costumer.getMoney()) {
             errorLBL.setText("You dont have Enough Money! go and charge your account!");
             return;
         }
-
+        if (addressTXF.getText().toString().equals("")) {
+            errorLBL.setText("Please Enter an Address");
+            return;
+        }
+        ArrayList<OrderItem> orderItems = new ArrayList<OrderItem>();
+        for (int i = 0; i < selectedPreOrder.getItems().size(); i++) {
+            orderItems
+                    .add(new OrderItem(
+                            priceAfterDiscountttt(selectedPreOrder.getItems().get(i).getPrice(),
+                                    this.discountPercentage),
+                            selectedPreOrder.getItems().get(i).getItemID(),
+                            selectedPreOrder.getItems().get(i).getFoodCatagoryID(),
+                            selectedPreOrder.getItems().get(i).getRestaurantID(),
+                            selectedPreOrder.getItems().get(i).getItem_name()));
+        }
+        getCounter();
+        Order order = new Order(idcounter.getOrderID(), costumer.getID(), selectedPreOrder.getCafeRestaurantAddress(),
+                addressTXF.getText(),
+                selectedPreOrder.getCafeRestaurantName(), orderItems, this.priceAfterDiscount, costumer.getName(),
+                costumer.getLastName(), costumer.getPhoneNumber());
+        costumer.setMoney(costumer.getMoney() - priceAfterDiscount);
+        if (discountCode != null) {
+            costumer.getCostumerDiscounts().remove(discountCode);
+        }
+        idcounter.AddOrder();
+        orders.add(order);
+        costumer.getOrders().add(order);
+        goToThanksPage();
     }
 
     private double priceAfterDiscountttt(double price, int discount) {
@@ -117,6 +143,9 @@ public class CostumerFinalizePaymentPageController {
 
     private void goToThanksPage() {
         costumer.getPreOrders().remove(this.selectedPreOrder);
+        SetInFile.setCounter(idcounter);
+        SetInFile.setcostumers(costumers);
+        SetInFile.setOrders(orders);
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("..\\view\\thanks.fxml"));
         try {
@@ -127,6 +156,17 @@ public class CostumerFinalizePaymentPageController {
         ThanksPageController controller = loader.getController();
         controller.initfunction(stage, costumer, orders, cafeRestaurants, costumers);
         this.stage.setScene(new Scene(loader.getRoot()));
+    }
+
+    private void getCounter() {
+        try {
+            FileInputStream fis = new FileInputStream("counter.txt");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            this.idcounter = (IDcounter) ois.readObject();
+            ois.close();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 }

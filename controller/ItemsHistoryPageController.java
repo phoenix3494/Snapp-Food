@@ -17,7 +17,7 @@ public class ItemsHistoryPageController {
     private Stage stage;
     private Costumer costumer;
     private ArrayList<Order> orders = new ArrayList<Order>();
-    private  ArrayList<CafeRestaurant> cafeRestaurants = new ArrayList<CafeRestaurant>();
+    private ArrayList<CafeRestaurant> cafeRestaurants = new ArrayList<CafeRestaurant>();
     private double rating;
     private double price;
     private int itemID;
@@ -26,17 +26,17 @@ public class ItemsHistoryPageController {
     private String Item_name;
     @FXML
     private TableView<OrderItem> itemsTBL;
-    private TableColumn<OrderItem,String> itemsName;
-    private TableColumn<OrderItem,Double> pricee;
-    private TableColumn<OrderItem,Double> rate;
+    private TableColumn<OrderItem, String> itemsName;
+    private TableColumn<OrderItem, Double> pricee;
+    private TableColumn<OrderItem, Double> rate;
     private Order selectedOrder;
 
     private ArrayList<Costumer> costumers = new ArrayList<Costumer>();
 
-    public void initfunction(Stage stage ,Costumer costumer ,ArrayList<Order> orders ,ArrayList<CafeRestaurant> cafeRestaurants,ArrayList<Costumer> costumers,Order selectedOrder )
-    {
+    public void initfunction(Stage stage, Costumer costumer, ArrayList<Order> orders,
+            ArrayList<CafeRestaurant> cafeRestaurants, ArrayList<Costumer> costumers, Order selectedOrder) {
         this.stage = stage;
-        this.costumer =costumer;
+        this.costumer = costumer;
         this.orders = orders;
         this.cafeRestaurants = cafeRestaurants;
         this.costumers = costumers;
@@ -47,9 +47,10 @@ public class ItemsHistoryPageController {
         itemsName.setCellValueFactory(new PropertyValueFactory<>("Item_name"));
         pricee.setCellValueFactory(new PropertyValueFactory<>("price"));
         rate.setCellValueFactory(new PropertyValueFactory<>("rating"));
-        itemsTBL.getColumns().addAll(itemsName,pricee,rate);
+        itemsTBL.getColumns().addAll(itemsName, pricee, rate);
         itemsTBL.getItems().addAll(selectedOrder.getItems());
     }
+
     @FXML
     void back(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader();
@@ -59,8 +60,8 @@ public class ItemsHistoryPageController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        CostumerPanelPageController controller = loader.getController();
-        controller.initfunction(stage,costumer,orders,cafeRestaurants,costumers);
+        HistoryPageController controller = loader.getController();
+        controller.initfunction(stage, costumer, orders, cafeRestaurants, costumers);
         this.stage.setScene(new Scene(loader.getRoot()));
     }
 

@@ -82,6 +82,7 @@ public class AllOrdersDeliveryPageController {
         Order selectedOrder = orderTBL.getSelectionModel().getSelectedItem();
         if (selectedOrder != null) {
             selectedOrder.setStatus(OrderStatus.Accepted);
+            AcceptOrder(selectedOrder);
             delivery.getOrders().add(selectedOrder);
             orderTBL.getItems().remove(selectedOrder);
             errorLBL.setText("Order Accepted");
@@ -90,6 +91,22 @@ public class AllOrdersDeliveryPageController {
             SetInFile.setcostumers(costumers);
         }
 
+    }
+
+    private void AcceptOrder(Order selectedOrder) {
+        int costumerID = selectedOrder.getCostumerID();
+        int OrderID = selectedOrder.getOrderID();
+        ArrayList<Order> costumerOrders = null;
+        for (int i = 0; i < costumers.size(); i++) {
+            if (costumerID == costumers.get(i).getID()) {
+                costumerOrders = costumers.get(i).getOrders();
+            }
+        }
+        for (int i = 0; i < costumerOrders.size(); i++) {
+            if (costumerOrders.get(i).getOrderID() == OrderID) {
+                costumerOrders.get(i).setStatus(OrderStatus.Accepted);
+            }
+        }
     }
 
     @FXML

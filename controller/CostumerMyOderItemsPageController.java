@@ -159,7 +159,7 @@ public class CostumerMyOderItemsPageController implements Initializable {
                 break;
             }
         }
-        cafeRestaurants.get(categoryIndex).getFoods().get(categoryIndex).getItems().get(foodIndex).addScore(rate);
+        cafeRestaurants.get(restaurantIndex).getFoods().get(categoryIndex).getItems().get(foodIndex).addScore(rate);
 
     }
 

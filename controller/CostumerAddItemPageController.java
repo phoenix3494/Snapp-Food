@@ -106,7 +106,7 @@ public class CostumerAddItemPageController {
     void clickCategoryTable(MouseEvent event) {
         FoodCatagory selectedCategory = categoryTBL.getSelectionModel().getSelectedItem();
         if (selectedCategory != null) {
-            itemsTBL.getItems().removeAll();
+            itemsTBL.getItems().clear();
             itemsTBL.getItems().addAll(selectedCategory.getItems());
         }
     }

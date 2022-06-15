@@ -11,6 +11,15 @@ public class Order implements Serializable {
     private String ReceiverAddress;
     private String costumerName;
     Date date = new Date();
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     private String costumerFname;
     private String costumerPhoneNumber;
     private int numberOfItems;

@@ -3,7 +3,6 @@ package model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-
 public class Costumer extends Person implements Serializable {
     private int ID;
     private double money;
@@ -12,11 +11,12 @@ public class Costumer extends Person implements Serializable {
     private ArrayList<PreOrder> preOrders = new ArrayList<PreOrder>();
     private ArrayList<DiscountCode> CostumerDiscounts = new ArrayList<DiscountCode>();
 
-    public Costumer(int ID,String name, String lastName, String username, String password, String phoneNumber) {
+    public Costumer(int ID, String name, String lastName, String username, String password, String phoneNumber) {
         super(name, lastName, username, password, phoneNumber);
         this.ID = ID;
         this.money = 0;
     }
+
     public double getMoney() {
         return money;
     }
@@ -24,11 +24,10 @@ public class Costumer extends Person implements Serializable {
     public void setMoney(double money) {
         this.money = money;
     }
-    public  void chargeMoney(double money)
-    {
+
+    public void chargeMoney(double money) {
         this.money = this.money + money;
     }
-
 
     public ArrayList<CafeRestaurant> getCostumerRestaurants() {
         return CostumerRestaurants;
@@ -69,4 +68,5 @@ public class Costumer extends Person implements Serializable {
     public void setPreOrders(ArrayList<PreOrder> preOrders) {
         this.preOrders = preOrders;
     }
+
 }

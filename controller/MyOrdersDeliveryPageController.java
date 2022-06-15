@@ -95,6 +95,7 @@ public class MyOrdersDeliveryPageController {
         Order selectedOrder = orderTBL.getSelectionModel().getSelectedItem();
         if (selectedOrder != null) {
             selectedOrder.setStatus(OrderStatus.Delivered);
+            Delivered(selectedOrder);
             delivery.getOrders().remove(selectedOrder);
             orderTBL.getItems().remove(selectedOrder);
             errorLBL.setText("Order Delivered");
@@ -104,4 +105,26 @@ public class MyOrdersDeliveryPageController {
         }
 
     }
+
+    private void Delivered(Order selectedOrder) {
+        int costumerID = selectedOrder.getCostumerID();
+        int OrderID = selectedOrder.getOrderID();
+        ArrayList<Order> costumerOrders = null;
+        for (int i = 0; i < costumers.size(); i++) {
+            if (costumerID == costumers.get(i).getID()) {
+                costumerOrders = costumers.get(i).getOrders();
+            }
+        }
+        for (int i = 0; i < costumerOrders.size(); i++) {
+            if (costumerOrders.get(i).getOrderID() == OrderID) {
+                costumerOrders.get(i).setStatus(OrderStatus.Delivered);
+            }
+        }
+        for (int i = 0; i < orders.size(); i++) {
+            if (orders.get(i).getOrderID() == OrderID) {
+                orders.get(i).setStatus(OrderStatus.Delivered);
+            }
+        }
+    }
+
 }

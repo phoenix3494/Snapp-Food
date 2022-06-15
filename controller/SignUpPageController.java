@@ -154,6 +154,7 @@ public class SignUpPageController implements Initializable {
                     if (!invitationTXF.getText().equals("")
                             && !checkInvitationCode(EmailTXF.getText(), invitationTXF.getText())) {
                         errorLBL.setText("invitation code is invalid");
+                        return;
                     }
                     sendEmail(generateNumber(), EmailTXF.getText());
                     errorLBL.setText("");

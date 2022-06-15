@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="650.0" prefWidth="800.0" style="-fx-background-color: #1a0439;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CostumerMyOrdersPageController">
+<AnchorPane prefHeight="650.0" prefWidth="800.0" style="-fx-background-color: #1a0439;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CostumerMyOderItemsPageController">
    <children>
       <Label alignment="CENTER" layoutX="107.0" layoutY="9.0" prefHeight="73.0" prefWidth="151.0" text="Items" textFill="#eeff00">
          <font>

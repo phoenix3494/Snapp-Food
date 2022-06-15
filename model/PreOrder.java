@@ -7,17 +7,28 @@ public class PreOrder implements Serializable {
     private int costumerID;
     private int cafeRestaurantID;
     private String cafeRestaurantName;
+    private String cafeRestaurantAddress;
+
     private double price;
     private ArrayList<Item> items = new ArrayList<Item>();
     private int numberOfItems = 0;
 
-    public PreOrder(int costumerID, int cafeRestaurantID, String cafeRestaurantName, Long price) {
+    public PreOrder(int costumerID, int cafeRestaurantID, String cafeRestaurantName, Long price, String resAddress) {
 
         this.costumerID = costumerID;
         this.cafeRestaurantID = cafeRestaurantID;
         this.cafeRestaurantName = cafeRestaurantName;
         this.price = price;
+        this.cafeRestaurantAddress = resAddress;
 
+    }
+
+    public String getCafeRestaurantAddress() {
+        return cafeRestaurantAddress;
+    }
+
+    public void setCafeRestaurantAddress(String cafeRestaurantAddress) {
+        this.cafeRestaurantAddress = cafeRestaurantAddress;
     }
 
     public int getCostumerID() {

@@ -99,7 +99,8 @@ public class costumerRestaurantPageController {
         CafeRestaurant selected = restaurantTBL.getSelectionModel().getSelectedItem();
 
         if (selected != null) {
-            PreOrder preorder = new PreOrder(costumer.getID(), selected.getID(), selected.getName(), 0L);
+            PreOrder preorder = new PreOrder(costumer.getID(), selected.getID(), selected.getName(), 0L,
+                    selected.getAddress());
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("..\\view\\costumerselectitempage.fxml"));
             try {
