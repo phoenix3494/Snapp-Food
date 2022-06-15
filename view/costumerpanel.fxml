@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="650.0" prefWidth="800.0" style="-fx-background-color: #1a0439;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CostumerPanelPageController">
+   <children>
+      <Label alignment="CENTER" layoutX="296.0" layoutY="29.0" prefHeight="64.0" prefWidth="207.0" text="PANEL" textFill="#c3ff00">
+         <font>
+            <Font name="System Bold" size="49.0" />
+         </font>
+      </Label>
+      <Button layoutX="276.0" layoutY="137.0" mnemonicParsing="false" onAction="#recharge" prefHeight="71.0" prefWidth="247.0" style="-fx-background-color: #19f70d; -fx-background-radius: 10;" text="Recharge Account" textFill="#140e51">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button layoutX="277.0" layoutY="237.0" mnemonicParsing="false" onAction="#history" prefHeight="71.0" prefWidth="247.0" style="-fx-background-color: #19f70d; -fx-background-radius: 10;" text="Payment History" textFill="#140e51">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button layoutX="276.0" layoutY="332.0" mnemonicParsing="false" onAction="#invite" prefHeight="71.0" prefWidth="247.0" style="-fx-background-color: #19f70d; -fx-background-radius: 10;" text="Invite Friend" textFill="#140e51">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button layoutX="276.0" layoutY="535.0" mnemonicParsing="false" onAction="#back" prefHeight="71.0" prefWidth="247.0" style="-fx-background-color: #f80d0d; -fx-background-radius: 10;" text="Back" textFill="#140e51">
+         <font>
+            <Font name="System Bold" size="23.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button layoutX="276.0" layoutY="432.0" mnemonicParsing="false" onAction="#discountcodes" prefHeight="71.0" prefWidth="247.0" style="-fx-background-color: #19f70d; -fx-background-radius: 10;" text="Discount Codes" textFill="#140e51">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+   </children>
+</AnchorPane>

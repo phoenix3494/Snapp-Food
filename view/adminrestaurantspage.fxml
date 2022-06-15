@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="650.0" prefWidth="800.0" style="-fx-background-color: #1a0439;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddRestaurantPageController">
+   <children>
+      <Label alignment="CENTER" layoutX="70.0" layoutY="48.0" prefHeight="43.0" prefWidth="287.0" text="Restaurants &amp; Cafes" textFill="#eaff00">
+         <font>
+            <Font name="System Bold" size="29.0" />
+         </font>
+      </Label>
+      <Button fx:id="addBTN" layoutX="407.0" layoutY="118.0" mnemonicParsing="false" onAction="#add" prefHeight="45.0" prefWidth="186.0" style="-fx-background-color: #19f70d; -fx-background-radius: 9;" text="add ">
+         <font>
+            <Font name="System Bold Italic" size="21.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <TableView fx:id="restaurantTBL" layoutX="30.0" layoutY="118.0" prefHeight="503.0" prefWidth="366.0" />
+      <Button fx:id="statusBTN" layoutX="608.0" layoutY="118.0" mnemonicParsing="false" onAction="#status" prefHeight="45.0" prefWidth="186.0" style="-fx-background-color: #19f70d;" text="status">
+         <font>
+            <Font name="System Bold Italic" size="21.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="backBTN" layoutX="714.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" prefHeight="45.0" prefWidth="80.0" style="-fx-background-color: #f80d0d; -fx-background-radius: 10;" text="Back">
+         <font>
+            <Font name="System Bold Italic" size="21.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <VBox fx:id="addRestaurantVBX" layoutX="405.0" layoutY="260.0" prefHeight="286.0" prefWidth="376.0">
+         <children>
+            <HBox prefHeight="60.0" prefWidth="218.0" spacing="20.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="43.0" prefWidth="100.0" text="Type : " textFill="#eaff00">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <RadioButton fx:id="cafeRB" mnemonicParsing="false" selected="true" text="Cafe" textFill="#ff0d0d">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="type" />
+                     </toggleGroup>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </RadioButton>
+                  <RadioButton fx:id="restaurantRB" mnemonicParsing="false" text="Restaurant" textFill="RED" toggleGroup="$type">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </RadioButton>
+               </children>
+            </HBox>
+            <HBox prefHeight="54.0" prefWidth="348.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="43.0" prefWidth="81.0" text="Name :" textFill="#eaff00">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="nameTXF" prefHeight="25.0" prefWidth="288.0">
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="45.0" prefWidth="348.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="43.0" prefWidth="97.0" text="Place Name:" textFill="#eaff00">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="-10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="placeTXF" prefHeight="25.0" prefWidth="282.0">
+                     <HBox.margin>
+                        <Insets right="5.0" top="10.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="47.0" prefWidth="376.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="43.0" prefWidth="102.0" text="Address : " textFill="#eaff00">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="addressTXF" prefHeight="25.0" prefWidth="299.0">
+                     <HBox.margin>
+                        <Insets right="10.0" top="18.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="71.0" prefWidth="376.0" spacing="100.0">
+               <children>
+                  <Button fx:id="confirmBTN" mnemonicParsing="false" onAction="#confirm" prefHeight="36.0" prefWidth="72.0" style="-fx-background-color: #19f70d;" text="Confirm">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="cancelBTN" mnemonicParsing="false" onAction="#cancel" prefHeight="37.0" prefWidth="68.0" style="-fx-background-color: #f80d0d;" text="Cancel">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets left="66.0" top="25.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+      <Label fx:id="errorLBL" alignment="CENTER" layoutX="411.0" layoutY="185.0" prefHeight="43.0" prefWidth="376.0" textFill="RED">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

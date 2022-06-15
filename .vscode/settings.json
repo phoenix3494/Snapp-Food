@@ -1,0 +1,15 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "d:\\javafx-sdk-18\\lib\\activation.jar",
+        "d:\\javafx-sdk-18\\lib\\javafx.base.jar",
+        "d:\\javafx-sdk-18\\lib\\javafx.controls.jar",
+        "d:\\javafx-sdk-18\\lib\\javafx.fxml.jar",
+        "d:\\javafx-sdk-18\\lib\\javafx.graphics.jar",
+        "d:\\javafx-sdk-18\\lib\\javafx.media.jar",
+        "d:\\javafx-sdk-18\\lib\\javafx.swing.jar",
+        "d:\\javafx-sdk-18\\lib\\javafx.web.jar",
+        "d:\\javafx-sdk-18\\lib\\javafx-swt.jar",
+        "d:\\javafx-sdk-18\\lib\\javax.mail.jar"
+    ]
+}
